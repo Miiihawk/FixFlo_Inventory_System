@@ -69,8 +69,8 @@
   <main>
     <h1>Dashboard</h1>
 
-    <div class="data">
-      <input type= "date">
+    <div class="date">
+      <input type="text" placeholder="Search..">
     </div>
 
     <div class="insights">
@@ -82,11 +82,33 @@
                 <h3>$0000</h3>
             </div>
             <div class="progress">
-
+                <svg>
+                  <circle cx="40" cy="40" r="30"></circle>
+                </svg>
+              <div class="number">
+                80%
+              </div>
             </div>
           </div>
+          <small>Last 24 Hours</small>
       </div>
+      <!-- end selling-->
     </div>
+   <!-- end inside -->
+      <!-- start recent order -->
+    <div class="recent_order">
+      <h1>Recent Order</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Product Number</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+      <!-- end recent order -->
   </main>
   <!-- main section end -->
   <div class = "right">
