@@ -1,3 +1,8 @@
+<?php
+require_once 'productController.php';
+$products = getAllProductsWithCategory();
+?>
+
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -87,26 +92,20 @@
             <th>Status</th>
           </tr>
         </thead>
-          <body>
-            <tr>
-              <td>Mini USB</td>
-              <td>001</td>
-              <td>001</td>
-              <td>Due</td>
-              <td>Pending</td>
-              <td>Details</td>
-            </tr>
-
-            <tr>
-              <td>Mini USB</td>
-              <td>001</td>
-              <td>001</td>
-              <td>Due</td>
-              <td>Pending</td>
-              <td>Details</td>
-            </tr>
-
-          </body>
+          <tbody>
+        <?php foreach ($products as $product): ?>
+          <tr>
+            <td><?= htmlspecialchars($product['product_id']) ?></td>
+            <td><?= htmlspecialchars($product['product_name']) ?></td>
+            <td><?= htmlspecialchars($product['category_name']) ?></td>
+            <td>₱<?= number_format($product['unit_price'], 2) ?></td>
+            <td>
+              <?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?>
+            </td>
+            <td><a href="#">Details</a></td>
+          </tr>
+        <?php endforeach; ?>
+        </tbody>
       </table>
     </div>
       <!-- end recent order -->
