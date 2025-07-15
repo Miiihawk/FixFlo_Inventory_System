@@ -1,6 +1,8 @@
 <?php
 require_once 'productController.php';
-$products = getAllProductsWithCategory();
+
+$search = $_GET['search'] ?? '';
+$products = getAllProductsWithCategory($search);
 ?>
 
 <!doctype html>
@@ -75,7 +77,10 @@ $products = getAllProductsWithCategory();
     <h1>Dashboard</h1>
 
     <div class="date">
-      <input type="text" placeholder="Search..">
+      <form method="GET" action="index.php">
+        <input type="text" name="search" placeholder="Search.." value="<?= htmlspecialchars($_GET['search'] ?? '')?>">
+        <button type="submit">Search</button>
+      </form>
     </div>
 
    <!-- end inside -->
