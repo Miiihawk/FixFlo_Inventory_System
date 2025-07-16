@@ -26,11 +26,16 @@
 
   <div class="container">
       <div class="form-box active" id="login-form">
-         <form action="#">
+         <form action="authController.php" method="POST">
            <h2>FixFlo</h2>
-           <input type="email" name="email" placeholder="Email" required>
+           <input type="text" name="username" placeholder="Username" required>
            <input type="password" name="password" placeholder="Password" required>
            <button type="submit" name="Login">Login</button>
+
+            <?php session_start(); if (isset($_SESSION['error'])): ?>
+                <p style="color: red"><?=$_SESSION['error']; unset($_SESSION['error']); ?></p>
+            <?php endif; ?>
+
            <p>Don't have an account? <a href="#" onclick="showForm('register-form')">Register</a></p>
          </form>
       </div>

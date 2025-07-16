@@ -3,6 +3,12 @@ require_once 'productController.php';
 
 $search = $_GET['search'] ?? '';
 $products = getAllProductsWithCategory($search);
+
+session_start();
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php");
+  exit();
+}
 ?>
 
 <!doctype html>
@@ -130,8 +136,8 @@ $products = getAllProductsWithCategory($search);
 
       <div class="profile">
         <div class="info">
-            <p><b>Hatdog</b></p>
-            <p>Admin</p>
+            <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
+            <p><?= htmlspecialchars($_SESSION['role']) ?></p>
             <small class="text-muted"></small>
         </div>
         <div class="profile-photo">
