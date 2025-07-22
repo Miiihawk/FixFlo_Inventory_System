@@ -58,11 +58,6 @@ if (!isset($_SESSION['user_id'])) {
             <h3>Dashboard</h3>
           </a>
 
-        <!--  <a href="#" class="active">
-            <span class="material-symbols-outlined"> overview </span>
-            <h3>Logs</h3>
-          </a> -->
-
           <a href="#">
             <span class="material-symbols-outlined"> manage_accounts </span>
             <h3>Manage Users</h3>
@@ -129,10 +124,7 @@ if (!isset($_SESSION['user_id'])) {
          <span class="material-symbols-outlined"> menu</span>
       </button>
 
-     <!--  <div class="theme-toggler">
-        <span class="material-symbols-outlined"> light_mode</span>
-        <span class="material-symbols-outlined"> dark_mode</span>
-      </div> -->
+
 
       <div class="profile">
         <div class="info">
