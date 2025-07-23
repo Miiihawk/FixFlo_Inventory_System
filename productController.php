@@ -1,6 +1,23 @@
 <?php
-//product controller
+// product controller
 require_once 'db_connection.php';
+
+function deleteProductById($productId) {
+    global $pdo;
+
+    $stmt = $pdo->prepare("DELETE FROM products WHERE product_id = :id");
+    $stmt->bindParam(':id', $productId, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
+if (isset($_GET['delete'])) {
+    $productId = $_GET['delete'];
+
+    deleteProductById($productId);
+
+    header("Location: index.php");
+    exit();
+}
 
 function getAllProductsWithCategory($search = '') {
     global $pdo;
@@ -17,15 +34,13 @@ function getAllProductsWithCategory($search = '') {
         INNER JOIN categories c on p.category_id = c.category_id
     ";
 
-    if(!empty($search)) {
-        $sql .=" WHERE p.name LIKE :search OR c.name LIKE :search";
+    if (!empty($search)) {
+        $sql .= " WHERE p.name LIKE :search OR c.name LIKE :search";
     }
 
-    //$sql .= " ORDER BY p.createed_at DESC"; I intend to put sorting logic crap here. pls ignore this.
-    
     $stmt = $pdo->prepare($sql);
 
-    if(!empty($search)) {
+    if (!empty($search)) {
         $term = "%$search%";
         $stmt->bindParam(':search', $term);
     }
@@ -33,4 +48,3 @@ function getAllProductsWithCategory($search = '') {
     $stmt->execute();
     return $stmt->fetchAll();
 }
-?>

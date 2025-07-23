@@ -88,7 +88,9 @@ if (!isset($_SESSION['user_id'])) {
             <td>
               <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">
                 <a href="#">Details</a>
-                <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
+                <a href="productController.php?delete=<?= $product['product_id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
+                  <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
+                </a>
               </div>
             </td>
           </tr>
