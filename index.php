@@ -17,20 +17,13 @@ if (!isset($_SESSION['user_id'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>FixFlo Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
   <meta name="description" content="">
-
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
-
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 
@@ -41,36 +34,24 @@ if (!isset($_SESSION['user_id'])) {
 
 <div class="container">
   <!-- aside section start -->
-    <aside>
-        <div class="top">
-          <div class="logo">
-            <h2>FixFlo</h2>
-          </div>
-          <div class="close">
-            <span class="material-symbols-outlined"> close </span>
-          </div>
-        </div>
-      <!-- end top -->
-
-      <div class="sidebar">
-          <a href="#">
-            <span class="material-symbols-outlined"> view_cozy </span>
-            <h3>Dashboard</h3>
-          </a>
-
-          <a href="#">
-            <span class="material-symbols-outlined"> manage_accounts </span>
-            <h3>Manage Users</h3>
-          </a>
-
-          <a href="#">
-          <span class="material-symbols-outlined"> settings </span>
-          <h3>Settings</h3>
-          </a>
-
+  <aside>
+    <div class="top">
+      <div class="logo">
+        <h2>FixFlo</h2>
       </div>
+      <div class="close">
+        <span class="material-symbols-outlined"> close </span>
+      </div>
+    </div>
 
-    </aside>
+    <div class="sidebar">
+      <a href="#"><span class="material-symbols-outlined"> view_cozy </span><h3>Dashboard</h3></a>
+      <a href="#"><span class="material-symbols-outlined"> manage_accounts </span><h3>Manage Users</h3></a>
+      <a href="#"><span class="material-symbols-outlined"> add </span><h3>Add Products</h3></a>
+      <a href="#"><span class="material-symbols-outlined"> edit </span><h3>Edit</h3></a>
+      <a href="logout.php"><span class="material-symbols-outlined"> logout </span><h3>Logout</h3></a>
+    </div>
+  </aside>
   <!-- aside section end -->
 
   <!-- main section start -->
@@ -79,13 +60,11 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="date">
       <form method="GET" action="index.php">
-        <input type="text" name="search" placeholder="Search.." value="<?= htmlspecialchars($_GET['search'] ?? '')?>">
+        <input type="text" name="search" placeholder="Search.." value="<?= htmlspecialchars($search) ?>">
         <button type="submit">Search</button>
       </form>
     </div>
 
-   <!-- end inside -->
-      <!-- start recent order -->
     <div class="recent_order">
       <h1>Recent Order</h1>
       <table>
@@ -98,54 +77,56 @@ if (!isset($_SESSION['user_id'])) {
             <th>Status</th>
           </tr>
         </thead>
-          <tbody>
-        <?php foreach ($products as $product): ?>
+        <tbody>
+          <?php foreach ($products as $product): ?>
           <tr>
             <td><?= htmlspecialchars($product['product_id']) ?></td>
             <td><?= htmlspecialchars($product['product_name']) ?></td>
             <td><?= htmlspecialchars($product['category_name']) ?></td>
             <td>₱<?= number_format($product['unit_price'], 2) ?></td>
+            <td><?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?></td>
             <td>
-              <?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?>
+              <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">
+                <a href="#">Details</a>
+                <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
+              </div>
             </td>
-            <td><a href="#">Details</a></td>
           </tr>
-        <?php endforeach; ?>
+          <?php endforeach; ?>
         </tbody>
       </table>
     </div>
-      <!-- end recent order -->
   </main>
   <!-- main section end -->
-  <div class = "right">
+
+  <div class="right">
     <div class="top">
-
-      <button>
-         <span class="material-symbols-outlined"> menu</span>
-      </button>
-
-
-
+      <button><span class="material-symbols-outlined"> menu</span></button>
       <div class="profile">
         <div class="info">
-            <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
-            <p><?= htmlspecialchars($_SESSION['role']) ?></p>
-            <small class="text-muted"></small>
+          <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
+          <p><?= htmlspecialchars($_SESSION['role']) ?></p>
         </div>
         <div class="profile-photo">
           <img src="img/Profile.jpg" alt="">
         </div>
       </div>
-
     </div>
 
     <div class="recent_updates">
       <h2>Logs</h2>
+      <div class="Logs">
+        <table>
+          <tbody>
+            <tr><td>Mini USB</td></tr>
+            <tr><td>Mini USB</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
 </div>
 
 </body>
-
 </html>
