@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/Add.css">
   <meta name="description" content="">
 
   <meta property="og:title" content="">
@@ -47,11 +47,6 @@
       </a>
 
       <a href="#">
-        <span class="material-symbols-outlined"> manage_accounts </span>
-        <h3>Manage Users</h3>
-      </a>
-
-      <a href="#">
         <span class="material-symbols-outlined"> add </span>
         <h3>Add Products</h3>
       </a>
@@ -74,54 +69,56 @@
 
   <!-- main section start -->
   <main>
-    <h1>Dashboard</h1>
-
-    <div class="date">
-      <input type="text" placeholder="Search..">
-    </div>
 
     <!-- end inside -->
     <!-- start recent order -->
     <div class="recent_order">
-      <h1>Recent Order</h1>
-      <table>
-        <thead>
-        <tr>
-          <th>Product Number</th>
-          <th>Product Name</th>
-          <th>Category</th>
-          <th>Payments</th>
-          <th>Status</th>
+      <h2>Edit Products</h2>
+      <div class="table">
 
-        </tr>
-        </thead>
-        <body>
-        <tr>
-          <td>Mini USB</td>
-          <td>001</td>
-          <td>001</td>
-          <td>Due</td>
-          <td>Pending</td>
-          <td>Details</td>
-          <td>
-            <span class="material-symbols-outlined"> delete </span>
-          </td>
-        </tr>
 
-        <tr>
-          <td>Mini USB</td>
-          <td>001</td>
-          <td>001</td>
-          <td>Due</td>
-          <td>Pending</td>
-          <td>Details</td>
-          <td>
-            <span class="material-symbols-outlined"> delete </span>
-          </td>
-        </tr>
+        <div class="Space">
+          <h3>Name</h3>
+          <input type="text" placeholder="ex. Hammer...">
+        </div>
 
-        </body>
-      </table>
+        <div class="Space">
+          <h3>Category</h3>
+          <input type="text" placeholder="ex. Paint...">
+        </div>
+
+        <div class="Space">
+          <h3>Payments</h3>
+          <input type="text" placeholder="ex. 1000...">
+        </div>
+
+        <div class="Space">
+          <h3>Status</h3>
+          <div class="custom-select">
+            <select>
+              <option value="" disabled selected>Select Status</option>
+              <option>Available</option>
+              <option>Out of Stock</option>
+
+            </select>
+          </div>
+        </div>
+
+        <div class="Space">
+          <h3>Details</h3>
+          <textarea class="Details" rows="20" cols="107"></textarea>
+        </div>
+
+        <div class="Button">
+          <button>Add Product</button>
+        </div>
+
+
+
+
+
+      </div>
+
     </div>
     <!-- end recent order -->
   </main>
