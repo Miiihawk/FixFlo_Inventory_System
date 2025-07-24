@@ -19,6 +19,23 @@ if (isset($_GET['delete'])) {
     exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
+    $name = $_POST['name'];
+    $category_id = $_POST['category_id'];
+    $stock = $_POST['stock'];
+    $unit_price = $_POST['unit_price'];
+    $details = isset($_POST['details']) ? $_POST['details'] : null;
+
+    $success = addProduct($name, $category_id, $stock, $unit_price, $details);
+
+    if ($success) {
+        header("Location: index.php?message=product_added");
+        exit();
+    } else {
+        echo "Error adding product.";
+    }
+}
+
 function getAllProductsWithCategory($search = '') {
     global $pdo;
     $sql = "
@@ -47,4 +64,20 @@ function getAllProductsWithCategory($search = '') {
 
     $stmt->execute();
     return $stmt->fetchAll();
+}
+
+function addProduct($name, $category_id, $stock, $unit_price, $details = null) {
+    global $pdo;
+
+    $sql = "INSERT INTO products (name, category_id, stock, unit_price, details) 
+            VALUES (:name, :category_id, :stock, :unit_price, :details)";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+    $stmt->bindParam(':stock', $stock, PDO::PARAM_INT);
+    $stmt->bindParam(':unit_price', $unit_price);
+    $stmt->bindParam(':details', $details);
+
+    return $stmt->execute();
 }
