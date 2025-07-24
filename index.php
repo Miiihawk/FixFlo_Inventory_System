@@ -1,8 +1,15 @@
 <?php
 require_once 'productController.php';
+require_once 'sortHelper.php';
 
 $search = $_GET['search'] ?? '';
+$sortKey = $_GET['sort'] ?? null;
+
 $products = getAllProductsWithCategory($search);
+
+if ($sortKey && isset($products[0][$sortKey])) {
+    $products = mergeSortProducts($products, $sortKey);
+}
 
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -20,14 +27,13 @@ if (!isset($_SESSION['user_id'])) {
   <title>FixFlo Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
   <meta name="description" content="">
-
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
-
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
 </head>
 
 <body>
@@ -58,13 +64,33 @@ if (!isset($_SESSION['user_id'])) {
   <main>
     <h1>Dashboard</h1>
 
-    <div class="date">
-      <form method="GET" action="index.php">
-        <input type="text" name="search" placeholder="Search.." value="<?= htmlspecialchars($search) ?>">
-        <button type="submit">Search</button>
-      </form>
+    <div class="top" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+      <!-- Search -->
+      <div class="Search">
+        <form method="GET" action="index.php">
+          <input type="text" name="search" placeholder="Search.." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+          <?php if (isset($_GET['sort'])): ?>
+            <input type="hidden" name="sort" value="<?= htmlspecialchars($_GET['sort']) ?>">
+          <?php endif; ?>
+        </form>
+      </div>
+      <!-- Sort  -->
+      <div class="custom-select">
+        <form method="GET" action="index.php">
+          <?php if (isset($_GET['search'])): ?>
+            <input type="hidden" name="search" value="<?= htmlspecialchars($_GET['search']) ?>">
+          <?php endif; ?>
+          <select name="sort" onchange="this.form.submit()">
+            <option value="" disabled <?= !isset($_GET['sort']) ? 'selected' : '' ?>>Sort By</option>
+            <option value="product_id" <?= ($_GET['sort'] ?? '') === 'product_id' ? 'selected' : '' ?>>ID</option>
+            <option value="product_name" <?= ($_GET['sort'] ?? '') === 'product_name' ? 'selected' : '' ?>>Name</option>
+            <option value="unit_price" <?= ($_GET['sort'] ?? '') === 'unit_price' ? 'selected' : '' ?>>Price</option>
+            <option value="category_name" <?= ($_GET['sort'] ?? '') === 'category_name' ? 'selected' : '' ?>>Category</option>
+          </select>
+        </form>
+      </div>
     </div>
-
+    <!-- table -->
     <div class="recent_order">
       <h1>Recent Order</h1>
       <table>
@@ -79,28 +105,27 @@ if (!isset($_SESSION['user_id'])) {
         </thead>
         <tbody>
           <?php foreach ($products as $product): ?>
-          <tr>
-            <td><?= htmlspecialchars($product['product_id']) ?></td>
-            <td><?= htmlspecialchars($product['product_name']) ?></td>
-            <td><?= htmlspecialchars($product['category_name']) ?></td>
-            <td>₱<?= number_format($product['unit_price'], 2) ?></td>
-            <td><?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?></td>
-            <td>
-              <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">
-                <a href="#">Details</a>
-                <a href="productController.php?delete=<?= $product['product_id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
-                  <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
-                </a>
-              </div>
-            </td>
-          </tr>
+            <tr>
+              <td><?= htmlspecialchars($product['product_id']) ?></td>
+              <td><?= htmlspecialchars($product['product_name']) ?></td>
+              <td><?= htmlspecialchars($product['category_name']) ?></td>
+              <td>₱<?= number_format($product['unit_price'], 2) ?></td>
+              <td><?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?></td>
+              <td>
+                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">
+                  <a href="#">Details</a>
+                  <a href="productController.php?delete=<?= $product['product_id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
+                    <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
+                  </a>
+                </div>
+              </td>
+            </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
     </div>
   </main>
-  <!-- main section end -->
-
+  <!-- section end -->
   <div class="right">
     <div class="top">
       <button><span class="material-symbols-outlined"> menu</span></button>
