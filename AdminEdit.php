@@ -58,7 +58,7 @@ require_once 'productController.php';
         <h3>Dashboard</h3>
       </a>
 
-      <a href="#">
+      <a href="ManageUser.php">
         <span class="material-symbols-outlined"> manage_accounts </span>
         <h3>Manage Users</h3>
       </a>

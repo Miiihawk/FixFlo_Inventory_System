@@ -52,7 +52,7 @@ if ($sortKey && isset($products[0][$sortKey])) {
 
     <div class="sidebar">
       <a href="#"><span class="material-symbols-outlined"> view_cozy </span><h3>Dashboard</h3></a>
-      <a href="#"><span class="material-symbols-outlined"> manage_accounts </span><h3>Manage Users</h3></a>
+      <a href="ManageUser.php"><span class="material-symbols-outlined"> manage_accounts </span><h3>Manage Users</h3></a>
       <a href="AdminAdd.php"><span class="material-symbols-outlined"> add </span><h3>Add Products</h3></a>
       <a href="AdminEdit.php"><span class="material-symbols-outlined"> edit </span><h3>Edit</h3></a>
       <a href="logout.php"><span class="material-symbols-outlined"> logout </span><h3>Logout</h3></a>
