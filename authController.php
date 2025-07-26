@@ -21,11 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
 
-        header("Location: index.php");
-        exit();
-    } else {
-        $_SESSION['error'] = "Invalid username or password.";
-        header("Location: login.php");
+        if ($user['role'] === 'admin') {
+            header("Location: index.php");
+        } else {
+            header("Location: Employee.php");
+        }
         exit();
     }
 }

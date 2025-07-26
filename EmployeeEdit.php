@@ -67,7 +67,7 @@ require_once 'productController.php';
         <h3>Edit</h3>
       </a>
 
-      <a href="logout.php">
+      <a href="LogOut.php">
         <span class="material-symbols-outlined"> logout </span>
         <h3>Logout</h3>
       </a>

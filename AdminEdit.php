@@ -6,6 +6,12 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
+if ($_SESSION['role'] !== 'admin') {
+    header("HTTP/1.1 403 Forbidden");
+    echo "Access denied.";
+    exit();
+}
+
 $product = isset($_SESSION['editProduct']) ? $_SESSION['editProduct'] : null;
 require_once 'productController.php';
 ?>
@@ -73,7 +79,7 @@ require_once 'productController.php';
         <h3>Edit</h3>
       </a>
 
-      <a href="#">
+      <a href="LogOut.php">
         <span class="material-symbols-outlined"> logout </span>
         <h3>Logout</h3>
       </a>

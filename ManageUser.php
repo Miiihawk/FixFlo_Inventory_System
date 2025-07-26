@@ -6,8 +6,21 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
+if ($_SESSION['role'] !== 'admin') {
+    header("HTTP/1.1 403 Forbidden");
+    echo "Access denied.";
+    exit();
+}
+
 require_once 'userController.php';
+require_once 'sortHelper.php';
+
 $users = getAllUsers();
+
+if (isset($_GET['sort'])) {
+    $sortKey = $_GET['sort'];
+    $users = mergeSortProducts($users, $sortKey);
+}
 ?>
 
 <!doctype html>
@@ -74,7 +87,7 @@ $users = getAllUsers();
       </a>
 
 
-      <a href="#">
+      <a href="LogOut.php">
         <span class="material-symbols-outlined"> logout </span>
         <h3>Logout</h3>
       </a>
@@ -88,17 +101,17 @@ $users = getAllUsers();
   <main>
     <h1>Manage User</h1>
     <div class="top">
-
       <div class="custom-select">
-        <select>
-          <option value="" disabled selected>Sort By</option>
-          <option>ID</option>
-          <option>Username</option>
-          <option>Role</option>
+  <form method="GET" action="ManageUser.php">
+    <select name="sort" onchange="this.form.submit()">
+      <option value="" disabled <?= !isset($_GET['sort']) ? 'selected' : '' ?>>Sort By</option>
+      <option value="user_id" <?= ($_GET['sort'] ?? '') === 'user_id' ? 'selected' : '' ?>>ID</option>
+      <option value="username" <?= ($_GET['sort'] ?? '') === 'username' ? 'selected' : '' ?>>Username</option>
+      <option value="role" <?= ($_GET['sort'] ?? '') === 'role' ? 'selected' : '' ?>>Role</option>
+    </select>
+  </form>
+</div>
 
-
-        </select>
-      </div>
     </div>
     <!-- end inside -->
     <!-- start recent order -->
@@ -106,32 +119,30 @@ $users = getAllUsers();
       <h1>Accounts/Users</h1>
       <table>
         <thead>
-  <tr>
-    <th>User ID</th>
-    <th>Username</th>
-    <th>Role</th>
-    <th>Date Created</th>
-    <th>Date Updated</th>
-  </tr>
-</thead>
-
+          <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Date Created</th>
+            <th>Date Updated</th>
+          </tr>
+        </thead>
         <tbody>
-            <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?= htmlspecialchars($user['user_id']) ?></td>
-                    <td><?= htmlspecialchars($user['username']) ?></td>
-                    <td><?= htmlspecialchars($user['role']) ?></td>
-                    <td><?= htmlspecialchars($user['created_at']) ?></td>
-                    <td><?= htmlspecialchars($user['updated_at']) ?></td>
-                    <td>
-                        <a href="manageUsers.php?delete=<?= $user['user_id'] ?>" onclick="return confirm('Delete this user?')">
-                        <span class="material-symbols-outlined"> delete </span>
-                    </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+          <?php foreach ($users as $user): ?>
+            <tr>
+              <td><?= htmlspecialchars($user['user_id']) ?></td>
+              <td><?= htmlspecialchars($user['username']) ?></td>
+              <td><?= htmlspecialchars($user['role']) ?></td>
+              <td><?= htmlspecialchars($user['created_at']) ?></td>
+              <td><?= htmlspecialchars($user['updated_at']) ?></td>
+              <td>
+                <a href="manageUsers.php?delete=<?= $user['user_id'] ?>" onclick="return confirm('Delete this user?')">
+                  <span class="material-symbols-outlined"> delete </span>
+                </a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
         </tbody>
-
       </table>
     </div>
     <!-- end recent order -->
@@ -185,7 +196,6 @@ $users = getAllUsers();
   </div>
 
 </div>
-
 </body>
 
 </html>

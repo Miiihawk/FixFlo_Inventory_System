@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once 'productController.php';
 require_once 'sortHelper.php';
 
@@ -10,8 +12,7 @@ $products = getAllProductsWithCategory($search);
 if ($sortKey && isset($products[0][$sortKey])) {
     $products = mergeSortProducts($products, $sortKey);
 }
-
-session_start();
+;
 if (!isset($_SESSION['user_id'])) {
   header("Location: login.php");
   exit();
