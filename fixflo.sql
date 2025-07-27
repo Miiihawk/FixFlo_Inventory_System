@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2025 at 06:12 PM
+-- Generation Time: Jul 27, 2025 at 11:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,11 +53,17 @@ CREATE TABLE `logs` (
   `log_id` int(11) NOT NULL COMMENT 'Unique log entry ID',
   `user_id` int(11) NOT NULL COMMENT 'Who performed the action',
   `product_id` int(11) NOT NULL COMMENT 'Which product was affected',
-  `action` varchar(50) NOT NULL COMMENT 'Type of action e.g., update, restock, sale',
   `quantity` int(11) DEFAULT NULL COMMENT 'Quantity added or removed (optional)',
-  `note` text DEFAULT NULL COMMENT 'Optional reason or description',
   `timestamp` datetime NOT NULL DEFAULT current_timestamp() COMMENT 'When it occurred'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`log_id`, `user_id`, `product_id`, `quantity`, `timestamp`) VALUES
+(1, 1, 1, 1, '2025-07-27 17:43:54'),
+(2, 1, 1, -56, '2025-07-27 17:44:05');
 
 -- --------------------------------------------------------
 
@@ -72,24 +78,24 @@ CREATE TABLE `products` (
   `stock` int(11) DEFAULT NULL COMMENT 'Stock quantity',
   `unit_price` decimal(10,2) DEFAULT NULL COMMENT 'Price per unit',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `details` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `name`, `category_id`, `stock`, `unit_price`, `created_at`, `updated_at`) VALUES
-(1, 'Hammer', 1, 50, 199.99, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(2, 'Paint Roller', 2, 30, 89.50, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(3, 'Screwdriver Set', 1, 20, 299.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(4, 'Extension Cord', 3, 15, 349.75, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(5, 'PVC Pipe (1m)', 4, 100, 59.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(6, 'Flat Head Nails (100pcs)', 5, 0, 45.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(7, 'Pipe Wrench', 4, 12, 579.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(8, 'Ceiling Light Fixture', 3, 6, 1199.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(9, 'Spray Paint – Black', 2, 25, 99.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49'),
-(10, 'Allen Wrench Set', 1, 8, 180.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49');
+INSERT INTO `products` (`product_id`, `name`, `category_id`, `stock`, `unit_price`, `created_at`, `updated_at`, `details`) VALUES
+(1, 'Hammer', 1, 50, 199.99, '2025-07-14 22:18:49', '2025-07-27 17:44:05', 'A Hammer'),
+(2, 'Paint Roller', 2, 30, 89.50, '2025-07-14 22:18:49', '2025-07-14 22:18:49', NULL),
+(3, 'Screwdriver Set', 1, 20, 299.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49', NULL),
+(4, 'Extension Cord', 3, 0, 349.75, '2025-07-14 22:18:49', '2025-07-27 11:25:00', NULL),
+(5, 'PVC Pipe (1m)', 4, 100, 59.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49', NULL),
+(6, 'Flat Head Nails (100pcs)', 5, 0, 45.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49', NULL),
+(7, 'Pipe Wrench', 4, 12, 579.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49', NULL),
+(8, 'Ceiling Light Fixture', 3, 10, 1199.00, '2025-07-14 22:18:49', '2025-07-27 11:41:02', NULL),
+(9, 'Spray Paint – Black', 2, 25, 99.00, '2025-07-14 22:18:49', '2025-07-14 22:18:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -157,7 +163,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Unique log entry ID';
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Unique log entry ID', AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
