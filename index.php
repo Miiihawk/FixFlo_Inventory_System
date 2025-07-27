@@ -14,6 +14,7 @@ if ($_SESSION['role'] !== 'admin') {
 
 require_once 'productController.php';
 require_once 'sortHelper.php';
+require_once 'logController.php';
 
 $search = $_GET['search'] ?? '';
 $sortKey = $_GET['sort'] ?? null;
@@ -99,28 +100,38 @@ if ($sortKey && isset($products[0][$sortKey])) {
     </div>
     <!-- table -->
     <div class="recent_order">
-      <h1>Recent Order</h1>
+      <h1>Products Table</h1>
       <table>
         <thead>
           <tr>
-            <th>Product Number</th>
+            <th style="width: 100px;">Product ID</th>
             <th>Product Name</th>
             <th>Category</th>
             <th>Payments</th>
             <th>Status</th>
+            <th>Stock</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach ($products as $product): ?>
             <tr>
-              <td><?= htmlspecialchars($product['product_id']) ?></td>
+              <td style="width: 100px;"><?= htmlspecialchars($product['product_id']) ?></td>
               <td><?= htmlspecialchars($product['product_name']) ?></td>
               <td><?= htmlspecialchars($product['category_name']) ?></td>
               <td>₱<?= number_format($product['unit_price'], 2) ?></td>
               <td><?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?></td>
+              <td style="text-align: center;">
+                <form method="POST" action="productController.php" style="display:inline-flex; align-items:center; gap: 4px;">
+                  <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                  <input type="number" name="stock" value="<?= $product['stock'] ?>" min="0" style="width: 60px; text-align: center;">
+                  <button type="submit" name="update_stock">Update</button>
+                </form>
+              </td>
+              <td><?= htmlspecialchars($product['details'] ?? '-') ?></td>
               <td>
                 <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">
-                  <a href="#">Details</a>
+                  <!-- Delete button -->
                   <a href="productController.php?delete=<?= $product['product_id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
                     <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
                   </a>
@@ -147,17 +158,38 @@ if ($sortKey && isset($products[0][$sortKey])) {
       </div>
     </div>
 
-    <div class="recent_updates">
-      <h2>Logs</h2>
-      <div class="Logs">
-        <table>
-          <tbody>
-            <tr><td>Mini USB</td></tr>
-            <tr><td>Mini USB</td></tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="recent_updates">
+    <h2>Logs</h2>
+    <div class="Logs">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($logs as $log): ?>
+            <tr>
+              <td><?= htmlspecialchars($log['product_name']) ?></td>
+              <td style="color: <?= $log['quantity'] >= 0 ? 'green' : 'red' ?>">
+                <?= ($log['quantity'] >= 0 ? '+' : '') . $log['quantity'] ?>
+              </td>
+              <td><?= htmlspecialchars($log['timestamp']) ?></td>
+            </tr>
+            <tr>
+              <td colspan="3" style="font-style: italic; font-size: 0.9em; color: gray;">
+                by <?= htmlspecialchars($log['username']) ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
     </div>
+  </div>
+</div>
+
   </div>
 
 </div>

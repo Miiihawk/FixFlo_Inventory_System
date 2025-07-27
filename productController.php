@@ -17,8 +17,7 @@ function deleteProductById($productId) {
 if (isset($_GET['delete'])) {
     $productId = $_GET['delete'];
     deleteProductById($productId);
-    header("Location: index.php");
-    exit();
+    redirectToDashboard();
 }
 
 // ADD PRODUCT
@@ -32,27 +31,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_PO
     $success = addProduct($name, $category_id, $stock, $unit_price, $details);
 
     if ($success) {
-        header("Location: index.php?message=product_added");
-        exit();
-    } else {
-        echo "Error adding product.";
+        redirectToDashboard();
     }
 }
 
 // SEARCH PRODUCT
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search_id']) && isset($_POST['search'])) {
     $searchId = $_POST['search_id'];
+    $redirect = $_POST['redirect_to'] ?? 'AdminEdit.php'; // fallback
+
     $product = getProductById(product_id: $searchId);
 
     if ($product) {
         $_SESSION['editProduct'] = $product;
-        header("Location: AdminEdit.php");
+        header("Location: $redirect");
         exit();
     } else {
-        header("Location: AdminEdit.php?error=notfound");
+        header("Location: $redirect?error=notfound");
         exit();
     }
 }
+
 
 // EDIT PRODUCT
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
@@ -65,13 +64,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 
     $success = editProduct($product_id, $name, $category_id, $stock, $unit_price, $details);
 
-    if ($success) {
-        header("Location: AdminEdit.php?message=updated");
-        exit();
-    } else {
-        header("Location: AdminEdit.php?error=updatefail");
-        exit();
+    redirectToDashboard();
+
+}
+
+// UPDATE STOCK ONLY
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_stock'])) {
+    $product_id = $_POST['product_id'];
+    $new_stock = $_POST['stock'];
+
+    if (is_numeric($product_id) && is_numeric($new_stock) && $new_stock >= 0) {
+        updateStockOnly($product_id, (int)$new_stock);
     }
+
+    redirectToDashboard();
 }
 
 // GET ALL PRODUCTS WITH CATEGORY (for listing)
@@ -85,6 +91,7 @@ function getAllProductsWithCategory($search = '') {
             c.category_id,
             p.stock,
             p.unit_price,
+            p.details,
             p.created_at
         FROM products p
         INNER JOIN categories c on p.category_id = c.category_id
@@ -152,4 +159,53 @@ function getProductById($product_id) {
     $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetch();
+}
+
+// UPDATE STOCK QUANTITY
+function updateStockOnly($product_id, $new_stock) {
+    global $pdo;
+
+    // Get the current stock first
+    $stmt = $pdo->prepare("SELECT stock FROM products WHERE product_id = :product_id");
+    $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $currentProduct = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$currentProduct) {
+        return; // product not found
+    }
+
+    $old_stock = (int)$currentProduct['stock'];
+    $quantity_change = $new_stock - $old_stock;
+
+    // Only proceed if there's an actual change
+    if ($quantity_change !== 0) {
+        // Update stock
+        $stmt = $pdo->prepare("UPDATE products SET stock = :stock WHERE product_id = :product_id");
+        $stmt->bindParam(':stock', $new_stock, PDO::PARAM_INT);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Insert into logs
+        $user_id = $_SESSION['user_id'] ?? null;
+        if ($user_id !== null) {
+            $logStmt = $pdo->prepare("INSERT INTO logs (user_id, product_id, quantity, timestamp)
+                                      VALUES (:user_id, :product_id, :quantity, NOW())");
+            $logStmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $logStmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+            $logStmt->bindParam(':quantity', $quantity_change, PDO::PARAM_INT);
+            $logStmt->execute();
+        }
+    }
+}
+
+// REDIRECT METHOD
+function redirectToDashboard() {
+    $role = $_SESSION['role'] ?? 'employee';
+    if ($role === 'admin') {
+        header("Location: index.php");
+    } else {
+        header("Location: Employee.php");
+    }
+    exit();
 }

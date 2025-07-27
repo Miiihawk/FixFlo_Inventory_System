@@ -52,7 +52,7 @@ require_once 'productController.php';
     </div>
 
     <div class="sidebar">
-      <a href="index.php">
+      <a href="Employee.php">
         <span class="material-symbols-outlined"> view_cozy </span>
         <h3>Dashboard</h3>
       </a>
@@ -91,7 +91,12 @@ require_once 'productController.php';
 
           <div class="Space">
             <h3>Search ID</h3>
-            <input type="text" name="search_id" placeholder="ex. 1001" value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
+            <input type="text" name="search_id" placeholder="ex. 1001"
+                  value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
+            
+            <!-- This input won't affect your layout -->
+            <input type="hidden" name="redirect_to" value="EmployeeEdit.php">
+
             <div class="Button">
               <button type="submit" name="search">Search</button>
             </div>

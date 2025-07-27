@@ -108,11 +108,16 @@ require_once 'productController.php';
             <?php endif; ?>
 
             <div class="Space">
-                <h3>Search ID</h3>
-                <input type="text" name="search_id" placeholder="ex. 1001" value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
-                <div class="Button">
+              <h3>Search ID</h3>
+              <input type="text" name="search_id" placeholder="ex. 1001"
+                    value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
+              
+              <!-- this input won't affect anything for the most part -->
+              <input type="hidden" name="redirect_to" value="AdminEdit.php">
+
+              <div class="Button">
                 <button type="submit" name="search">Search</button>
-                </div>
+              </div>
             </div>
 
             <input type="hidden" name="product_id" value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
