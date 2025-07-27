@@ -160,29 +160,36 @@
 
     <div class="recent_updates">
       <h2>Logs</h2>
-
       <div class="Logs">
-
         <table>
-
-          <body>
+          <thead>
           <tr>
-            <td>Mini USB</td>
-
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Time</th>
           </tr>
-
+          </thead>
+          <tbody>
+          <?php foreach ($logs as $log): ?>
           <tr>
-            <td>Mini USB</td>
-
+            <td>Skibidi</td>
+            <td style="color: <?= $log['quantity'] >= 0 ? 'green' : 'red' ?>">
+             100
+            </td>
+            <td>time</td>
           </tr>
-
-          </body>
+          <tr>
+            <td colspan="3" style="font-style: italic; font-size: 0.9em; color: gray;">
+              by Hatdog
+            </td>
+          </tr>
+          <?php endforeach; ?>
+          </tbody>
         </table>
-
       </div>
-
-
     </div>
+  </div>
+
   </div>
 
 </div>

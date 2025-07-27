@@ -111,7 +111,7 @@ require_once 'productController.php';
               <h3>Search ID</h3>
               <input type="text" name="search_id" placeholder="ex. 1001"
                     value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
-              
+
               <!-- this input won't affect anything for the most part -->
               <input type="hidden" name="redirect_to" value="AdminEdit.php">
 
@@ -177,28 +177,6 @@ require_once 'productController.php';
 
     </div>
 
-    <div class="recent_updates">
-      <h2>Logs</h2>
-
-      <div class="Logs">
-
-        <table>
-
-          <body>
-          <tr>
-            <td>Mini USB</td>
-
-          </tr>
-
-          <tr>
-            <td>Mini USB</td>
-
-          </tr>
-
-          </body>
-        </table>
-
-      </div>
 
 
     </div>

@@ -105,6 +105,7 @@ if (!isset($_SESSION['user_id'])) {
             <th>Payments</th>
             <th>Status</th>
             <th>Stock</th>
+            <th>  </th>
             <th>Details</th>
           </tr>
         </thead>
@@ -120,9 +121,9 @@ if (!isset($_SESSION['user_id'])) {
                 <form method="POST" action="productController.php" style="display:inline-flex; align-items:center; gap: 4px;">
                   <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
                   <input type="number" name="stock" value="<?= $product['stock'] ?>" min="0" style="width: 60px; text-align: center;">
-                  <button type="submit" name="update_stock">Update</button>
                 </form>
               </td>
+              <td> <button type="submit" name="update_stock">Update</button></td>
               <td><?= htmlspecialchars($product['details'] ?? '-') ?></td>
               <td>
                 <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">

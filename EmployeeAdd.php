@@ -125,21 +125,7 @@ require_once 'productController.php';
       </div>
     </div>
 
-    <div class="recent_updates">
-      <h2>Logs</h2>
-      <div class="Logs">
-        <table>
-          <tbody>
-          <tr>
-            <td>Mini USB</td>
-          </tr>
-          <tr>
-            <td>Mini USB</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+
   </div>
 
 </div>

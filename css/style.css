@@ -364,6 +364,7 @@ Right Side Style
   background-color: var(--clr-white);
   width:100%;
   border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
   text-align:center;
   color: var(--clr-dark);
 }
@@ -380,6 +381,10 @@ Right Side Style
 
 .right table tbody td{
   height: 3.8rem;
+  border-bottom: 1px solid var(--clr-white);
 }
+
+
+
 
 
