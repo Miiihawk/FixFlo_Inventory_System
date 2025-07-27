@@ -57,7 +57,7 @@ require_once 'productController.php';
         <h3>Dashboard</h3>
       </a>
 
-      <a href="AdminAdd.php">
+      <a href="EmployeeAdd.php">
         <span class="material-symbols-outlined"> add </span>
         <h3>Add Products</h3>
       </a>

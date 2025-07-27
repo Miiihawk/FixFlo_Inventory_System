@@ -54,7 +54,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="sidebar">
       <a href="#"><span class="material-symbols-outlined"> view_cozy </span><h3>Dashboard</h3></a>
       <a href="EmployeeAdd.php"><span class="material-symbols-outlined"> add </span><h3>Add Products</h3></a>
-      <a href="#"><span class="material-symbols-outlined"> edit </span><h3>Edit</h3></a>
+      <a href="EmployeeEdit.php"><span class="material-symbols-outlined"> edit </span><h3>Edit</h3></a>
       <a href="logout.php"><span class="material-symbols-outlined"> logout </span><h3>Logout</h3></a>
     </div>
   </aside>

@@ -157,9 +157,8 @@ if (isset($_GET['sort'])) {
 
       <div class="profile">
         <div class="info">
-          <p><b>Hatdog</b></p>
-          <p>Admin</p>
-          <small class="text-muted"></small>
+          <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
+          <p><?= htmlspecialchars($_SESSION['role']) ?></p>
         </div>
         <div class="profile-photo">
           <img src="img/Profile.jpg" alt="">
