@@ -12,6 +12,7 @@ if ($_SESSION['role'] !== 'admin') {
     exit();
 }
 
+$product = isset($_SESSION['editProduct']) ? $_SESSION['editProduct'] : null;
 require_once 'productController.php';
 ?>
 
@@ -22,7 +23,7 @@ require_once 'productController.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
-  <link rel="stylesheet" href="css/Add.css">
+  <link rel="stylesheet" href="../css/Edit.css">
   <meta name="description" content="">
 
   <meta property="og:title" content="">
@@ -33,9 +34,9 @@ require_once 'productController.php';
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" href="../icon.png">
 
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="manifest" href="../site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 
   <link rel="stylesheet"
@@ -68,12 +69,12 @@ require_once 'productController.php';
         <h3>Manage Users</h3>
       </a>
 
-      <a href="#">
+      <a href="AdminAdd.php">
         <span class="material-symbols-outlined"> add </span>
         <h3>Add Products</h3>
       </a>
 
-      <a href="AdminEdit.php">
+      <a href="#">
         <span class="material-symbols-outlined"> edit </span>
         <h3>Edit</h3>
       </a>
@@ -93,44 +94,68 @@ require_once 'productController.php';
 
     <!-- end inside -->
     <!-- start recent order -->
-    <main>
-        <div class="recent_order">
-            <h2>Add Product</h2>
-            <form action="productController.php" method="POST" class="table">
+    <div class="recent_order">
+      <h2>Edit Products</h2>
+      <div class="table">
+
+        <form method="POST" action="productController.php">
+            <?php if (isset($_GET['message']) && $_GET['message'] === 'updated'): ?>
+                <p style="color: green;">Product updated successfully.</p>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['error']) && $_GET['error'] === 'not_found'): ?>
+                <p style="color: red;">Product not found.</p>
+            <?php endif; ?>
+
+            <div class="Space">
+              <h3>Search ID</h3>
+              <input type="text" name="search_id" placeholder="ex. 1001"
+                    value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
+
+              <!-- this input won't affect anything for the most part -->
+              <input type="hidden" name="redirect_to" value="AdminEdit.php">
+
+              <div class="Button">
+                <button type="submit" name="search">Search</button>
+              </div>
+            </div>
+
+            <input type="hidden" name="product_id" value="<?= isset($product) ? htmlspecialchars($product['product_id']) : '' ?>">
 
             <div class="Space">
                 <h3>Name</h3>
-                <input type="text" name="name" placeholder="ex. Hammer..." required>
+                <input type="text" name="name" placeholder="ex. Hammer..." value="<?= isset($product) ? htmlspecialchars($product['name']) : '' ?>">
             </div>
 
             <div class="Space">
-                <h3>Category ID</h3>
-                <input type="number" name="category_id" placeholder="ex. 1..." required>
+                <h3>Category</h3>
+                <input type="text" name="category_id" placeholder="ex. 1..." value="<?= isset($product) ? htmlspecialchars($product['category_id']) : '' ?>">
+            </div>
+
+            <div class="Space">
+                <h3>Price</h3>
+                <input type="text" name="unit_price" placeholder="ex. 1000..." value="<?= isset($product) ? htmlspecialchars($product['unit_price']) : '' ?>">
             </div>
 
             <div class="Space">
                 <h3>Stock</h3>
-                <input type="number" name="stock" placeholder="ex. 50..." required>
-            </div>
-
-            <div class="Space">
-                <h3>Unit Price</h3>
-                <input type="number" step="0.01" name="unit_price" placeholder="ex. 1000.00..." required>
+                <input type="text" name="stock" placeholder="ex. 50" value="<?= isset($product) ? htmlspecialchars($product['stock']) : '' ?>">
             </div>
 
             <div class="Space">
                 <h3>Details</h3>
-                <textarea class="Details" name="details" rows="6" cols="50" placeholder="Enter description or extra notes (optional)..."></textarea>
+                <textarea class="Details" name="details" rows="20" cols="107"><?= isset($product) ? htmlspecialchars($product['details']) : '' ?></textarea>
             </div>
 
             <div class="Button">
-                <button type="submit" name="add">Add Product</button>
+                <button type="submit" name="update">Update Product</button>
             </div>
+        </form>
 
-            </form>
-        </div>
-    </main>
 
+      </div>
+
+    </div>
     <!-- end recent order -->
   </main>
   <!-- main section end -->
@@ -140,20 +165,21 @@ require_once 'productController.php';
       <button>
         <span class="material-symbols-outlined"> menu</span>
       </button>
-
       <div class="profile">
         <div class="info">
           <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
           <p><?= htmlspecialchars($_SESSION['role']) ?></p>
         </div>
         <div class="profile-photo">
-          <img src="img/Profile.jpg" alt="">
+          <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
-    </div>
 
     </div>
 
+
+
+    </div>
   </div>
 
 </div>

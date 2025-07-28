@@ -1,24 +1,29 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php");
+  exit();
+}
+
+require_once 'productController.php';
+?>
+
 <!doctype html>
 <html class="no-js" lang="">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="css/Edit.css">
+  <title>Employee - Add Product</title>
+  <link rel="stylesheet" href="../css/Add.css">
   <meta name="description" content="">
-
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" href="../icon.png">
 
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="manifest" href="../site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 
   <link rel="stylesheet"
@@ -38,10 +43,9 @@
         <span class="material-symbols-outlined"> close </span>
       </div>
     </div>
-    <!-- end top -->
 
     <div class="sidebar">
-      <a href="#">
+      <a href="Employee.php">
         <span class="material-symbols-outlined"> view_cozy </span>
         <h3>Dashboard</h3>
       </a>
@@ -51,135 +55,80 @@
         <h3>Add Products</h3>
       </a>
 
-      <a href="#">
+      <a href="EmployeeEdit.php">
         <span class="material-symbols-outlined"> edit </span>
         <h3>Edit</h3>
       </a>
 
-
-      <a href="#">
+      <a href="logout.php">
         <span class="material-symbols-outlined"> logout </span>
         <h3>Logout</h3>
       </a>
-
     </div>
-
   </aside>
   <!-- aside section end -->
 
   <!-- main section start -->
   <main>
-
-    <!-- end inside -->
-    <!-- start recent order -->
     <div class="recent_order">
-      <h2>Add Products</h2>
-      <div class="table">
-
-        <div class="Space">
-          <h3>Search ID</h3>
-          <input type="text" placeholder="ex. 1001">
-          <div class="Button">
-            <button>Search</button>
-          </div>
-
-        </div>
+      <h2>Add Product</h2>
+      <form action="productController.php" method="POST" class="table">
 
         <div class="Space">
           <h3>Name</h3>
-          <input type="text" placeholder="ex. Hammer...">
+          <input type="text" name="name" placeholder="ex. Hammer..." required>
         </div>
 
         <div class="Space">
-          <h3>Category</h3>
-          <input type="text" placeholder="ex. Paint...">
+          <h3>Category ID</h3>
+          <input type="number" name="category_id" placeholder="ex. 1..." required>
         </div>
 
         <div class="Space">
-          <h3>Payments</h3>
-          <input type="text" placeholder="ex. 1000...">
+          <h3>Stock</h3>
+          <input type="number" name="stock" placeholder="ex. 50..." required>
         </div>
 
         <div class="Space">
-          <h3>Status</h3>
-          <div class="custom-select">
-            <select>
-              <option value="" disabled selected>Select Status</option>
-              <option>Available</option>
-              <option>Out of Stock</option>
-
-            </select>
-          </div>
+          <h3>Unit Price</h3>
+          <input type="number" step="0.01" name="unit_price" placeholder="ex. 1000.00..." required>
         </div>
 
         <div class="Space">
           <h3>Details</h3>
-          <textarea class="Details" rows="20" cols="107"></textarea>
+          <textarea class="Details" name="details" rows="6" cols="50" placeholder="Enter description or extra notes (optional)..."></textarea>
         </div>
 
         <div class="Button">
-          <button>Add Product</button>
+          <button type="submit">Add Product</button>
         </div>
 
-
-
-
-
-      </div>
-
+      </form>
     </div>
-    <!-- end recent order -->
   </main>
   <!-- main section end -->
+
   <div class="right">
     <div class="top">
-
       <button>
         <span class="material-symbols-outlined"> menu</span>
       </button>
 
       <div class="profile">
         <div class="info">
-          <p><b>Hatdog</b></p>
-          <p>Admin</p>
-          <small class="text-muted"></small>
+          <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
+          <p><?= htmlspecialchars($_SESSION['role']) ?></p>
         </div>
         <div class="profile-photo">
-          <img src="img/Profile.jpg" alt="">
+          <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
-
     </div>
 
-    <div class="recent_updates">
-      <h2>Logs</h2>
 
-      <div class="Logs">
-
-        <table>
-
-          <body>
-          <tr>
-            <td>Mini USB</td>
-
-          </tr>
-
-          <tr>
-            <td>Mini USB</td>
-
-          </tr>
-
-          </body>
-        </table>
-
-      </div>
-
-
-    </div>
   </div>
 
 </div>
 
 </body>
-
 </html>

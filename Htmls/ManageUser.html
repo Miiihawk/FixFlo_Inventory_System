@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/Manage.css">
   <meta name="description" content="">
 
   <meta property="og:title" content="">
@@ -16,9 +16,9 @@
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" href="../icon.png">
 
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="manifest" href="../site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 
   <link rel="stylesheet"
@@ -74,59 +74,73 @@
 
   <!-- main section start -->
   <main>
-    <h1>Dashboard</h1>
+    <h1>Manage User</h1>
     <div class="top">
-      <div class="Search">
-        <input type="text" placeholder="Search..">
-      </div>
 
       <div class="custom-select">
         <select>
           <option value="" disabled selected>Sort By</option>
           <option>ID</option>
-          <option>Name</option>
-          <option>Price</option>
-          <option>Category</option>
-
-
+          <option>Username</option>
+          <option>Role</option>
         </select>
       </div>
     </div>
     <!-- end inside -->
     <!-- start recent order -->
     <div class="recent_order">
-      <h1>Recent Order</h1>
+      <h1>Accounts/Users</h1>
       <table>
         <thead>
         <tr>
-          <th>Product Number</th>
-          <th>Product Name</th>
-          <th>Category</th>
-          <th>Payments</th>
-          <th>Status</th>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Date Created</th>
+          <th>Date Updated</th>
 
         </tr>
         </thead>
         <body>
         <tr>
-          <td>Mini USB</td>
-          <td>001</td>
-          <td>001</td>
-          <td>Due</td>
-          <td>Pending</td>
-          <td>Details</td>
+          <td>1</td>
+          <td>Skibidi</td>
+          <td>admin</td>
+          <td>7/10/2025</td>
+          <td>7/12/2025</td>
           <td>
             <span class="material-symbols-outlined"> delete </span>
           </td>
         </tr>
 
         <tr>
-          <td>Mini USB</td>
-          <td>001</td>
-          <td>001</td>
-          <td>Due</td>
-          <td>Pending</td>
-          <td>Details</td>
+          <td>1</td>
+          <td>Skibidi</td>
+          <td>admin</td>
+          <td>7/10/2025</td>
+          <td>7/12/2025</td>
+          <td>
+            <span class="material-symbols-outlined"> delete </span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td>Skibidi</td>
+          <td>admin</td>
+          <td>7/10/2025</td>
+          <td>7/12/2025</td>
+          <td>
+            <span class="material-symbols-outlined"> delete </span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td>Skibidi</td>
+          <td>admin</td>
+          <td>7/10/2025</td>
+          <td>7/12/2025</td>
           <td>
             <span class="material-symbols-outlined"> delete </span>
           </td>
@@ -152,7 +166,7 @@
           <small class="text-muted"></small>
         </div>
         <div class="profile-photo">
-          <img src="img/Profile.jpg" alt="">
+          <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
 
@@ -160,36 +174,29 @@
 
     <div class="recent_updates">
       <h2>Logs</h2>
-      <div class="Logs">
-        <table>
-          <thead>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Time</th>
-          </tr>
-          </thead>
-          <tbody>
-          <?php foreach ($logs as $log): ?>
-          <tr>
-            <td>Skibidi</td>
-            <td style="color: <?= $log['quantity'] >= 0 ? 'green' : 'red' ?>">
-             100
-            </td>
-            <td>time</td>
-          </tr>
-          <tr>
-            <td colspan="3" style="font-style: italic; font-size: 0.9em; color: gray;">
-              by Hatdog
-            </td>
-          </tr>
-          <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 
+      <div class="Logs">
+
+        <table>
+
+          <body>
+          <tr>
+            <td>Mini USB</td>
+
+          </tr>
+
+          <tr>
+            <td>Mini USB</td>
+
+          </tr>
+
+          </body>
+        </table>
+
+      </div>
+
+
+    </div>
   </div>
 
 </div>

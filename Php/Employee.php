@@ -27,12 +27,12 @@ if (!isset($_SESSION['user_id'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FixFlo Employee Dashboard</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <meta name="description" content="">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="../icon.png">
+  <link rel="manifest" href="../site.webmanifest">
   <meta name="theme-color" content="#fafafa">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
@@ -150,7 +150,7 @@ if (!isset($_SESSION['user_id'])) {
           <p><?= htmlspecialchars($_SESSION['role']) ?></p>
         </div>
         <div class="profile-photo">
-          <img src="img/Profile.jpg" alt="">
+          <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
     </div>

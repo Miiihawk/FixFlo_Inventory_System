@@ -17,7 +17,7 @@ require_once 'productController.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Edit Product</title>
-  <link rel="stylesheet" href="css/Edit.css">
+  <link rel="stylesheet" href="../css/Edit.css">
   <meta name="description" content="">
 
   <meta property="og:title" content="">
@@ -28,9 +28,9 @@ require_once 'productController.php';
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" href="../icon.png">
 
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="manifest" href="../site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 
   <link rel="stylesheet"
@@ -150,7 +150,7 @@ require_once 'productController.php';
           <p><?= htmlspecialchars($_SESSION['role']) ?></p>
         </div>
         <div class="profile-photo">
-          <img src="img/Profile.jpg" alt="">
+          <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
     </div>
