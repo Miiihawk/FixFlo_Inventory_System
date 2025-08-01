@@ -145,7 +145,7 @@ $categories = getAllCategories();
         <span class="material-symbols-outlined"> menu</span>
       </button>
 
-            <div class="profile">
+      <div class="profile">
         <div class="info">
           <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
           <p><?= htmlspecialchars($_SESSION['role']) ?></p>
@@ -154,18 +154,18 @@ $categories = getAllCategories();
           <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
-    </div>      
-    <div class="recent_updates">
-      <h2>Category</h2>
-      <div class="Logs">
-        <table>
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Category</th>
-          </tr>
-          </thead>
-          <tbody>
+
+            <div class="recent_updates">
+        <h2>Category</h2>
+        <div class="Logs">
+          <table>
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+            </tr>
+            </thead>
+            <tbody>
             <?php foreach ($categories as $category): ?>
               <tr>
                 <td><?= htmlspecialchars($category['category_id']) ?></td>
@@ -176,6 +176,9 @@ $categories = getAllCategories();
           </table>
         </div>
       </div>
+    </div>
+
+    
 
   </div>
 </div>
