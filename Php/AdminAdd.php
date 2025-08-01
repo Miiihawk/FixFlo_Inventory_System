@@ -151,28 +151,29 @@ $categories = getAllCategories();
         </div>
       </div>
 
-      <div class="recent_order">
-        <h1>Category</h1>
-        <table>
-          <thead>
+      <div class="recent_updates">
+        <h2>Category</h2>
+        <div class="Logs">
+          <table>
+            <thead>
             <tr>
               <th>ID</th>
               <th>Category</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <?php foreach ($categories as $category): ?>
               <tr>
                 <td><?= htmlspecialchars($category['category_id']) ?></td>
                 <td><?= htmlspecialchars($category['category_name']) ?></td>
               </tr>
             <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
+            </tbody>
+          </table>
 
-    </div>
+        </div>
+
+      </div>
 
 
   </div>

@@ -125,8 +125,9 @@ $categories = getAllCategories();
         </div>
       </div>
 
-      <div class="recent_order">
-        <h1>Category</h1>
+      <div class="recent_updates">
+        <h2>Category</h2>
+        <div class="Logs">
         <table>
           <thead>
             <tr>

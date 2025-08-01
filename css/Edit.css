@@ -355,5 +355,27 @@ Right Side Style
   margin-top: 3.8rem;
 }
 
+.right .Logs table{
+  background-color: var(--clr-white);
+  width:100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align:center;
+  color: var(--clr-dark);
+}
 
+.right .Logs table:hover{
+  box-shadow: none;
+}
+
+.right table tbody tr{
+  height: 3.8rem;
+  border-bottom: 1px solid var(--clr-dark);
+  color: var(--clr-dark-variant);
+}
+
+.right table tbody td{
+  height: 3.8rem;
+  border-bottom: 1px solid var(--clr-white);
+}
 
