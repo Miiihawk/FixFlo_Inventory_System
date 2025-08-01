@@ -14,6 +14,7 @@ if ($_SESSION['role'] !== 'admin') {
 
 $product = isset($_SESSION['editProduct']) ? $_SESSION['editProduct'] : null;
 require_once 'productController.php';
+$categories = getAllCategories();
 ?>
 
 <!doctype html>
@@ -172,6 +173,27 @@ require_once 'productController.php';
         </div>
         <div class="profile-photo">
           <img src="../img/Profile.jpg" alt="">
+        </div>
+      </div>
+      <div class="recent_updates">
+        <h2>Category</h2>
+        <div class="Logs">
+          <table>
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($categories as $category): ?>
+              <tr>
+                <td><?= htmlspecialchars($category['category_id']) ?></td>
+                <td><?= htmlspecialchars($category['category_name']) ?></td>
+              </tr>
+            <?php endforeach; ?>
+            </tbody>
+          </table>
         </div>
       </div>
 
