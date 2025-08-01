@@ -209,3 +209,10 @@ function redirectToDashboard() {
     }
     exit();
 }
+
+// GET ALL CATEGORIES
+function getAllCategories() {
+    global $pdo;
+    $stmt = $pdo->query("SELECT category_id, name AS category_name FROM categories ORDER BY category_id ASC");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

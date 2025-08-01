@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 require_once 'productController.php';
+$categories = getAllCategories();
 ?>
 
 <!doctype html>
@@ -122,6 +123,26 @@ require_once 'productController.php';
         <div class="profile-photo">
           <img src="../img/Profile.jpg" alt="">
         </div>
+      </div>
+
+      <div class="recent_order">
+        <h1>Category</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($categories as $category): ?>
+              <tr>
+                <td><?= htmlspecialchars($category['category_id']) ?></td>
+                <td><?= htmlspecialchars($category['category_name']) ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
     </div>
 

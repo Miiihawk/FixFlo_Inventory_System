@@ -13,6 +13,7 @@ if ($_SESSION['role'] !== 'admin') {
 }
 
 require_once 'productController.php';
+$categories = getAllCategories();
 ?>
 
 <!doctype html>
@@ -130,7 +131,6 @@ require_once 'productController.php';
             </form>
         </div>
     </main>
-
     <!-- end recent order -->
   </main>
   <!-- main section end -->
@@ -150,9 +150,30 @@ require_once 'productController.php';
           <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
+
+      <div class="recent_order">
+        <h1>Category</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($categories as $category): ?>
+              <tr>
+                <td><?= htmlspecialchars($category['category_id']) ?></td>
+                <td><?= htmlspecialchars($category['category_name']) ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     </div>
+
 
   </div>
 

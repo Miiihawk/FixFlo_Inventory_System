@@ -117,28 +117,28 @@ if ($sortKey && isset($products[0][$sortKey])) {
         <tbody>
           <?php foreach ($products as $product): ?>
             <tr>
-              <td style="width: 100px;"><?= htmlspecialchars($product['product_id']) ?></td>
-              <td><?= htmlspecialchars($product['product_name']) ?></td>
-              <td><?= htmlspecialchars($product['category_name']) ?></td>
-              <td>₱<?= number_format($product['unit_price'], 2) ?></td>
-              <td><?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?></td>
-              <td style="text-align: center;">
-                <form method="POST" action="productController.php" style="display:inline-flex; align-items:center; gap: 4px;">
+              <form method="POST" action="productController.php" style="display: contents;">
+                <td style="width: 100px;"><?= htmlspecialchars($product['product_id']) ?></td>
+                <td><?= htmlspecialchars($product['product_name']) ?></td>
+                <td><?= htmlspecialchars($product['category_name']) ?></td>
+                <td>₱<?= number_format($product['unit_price'], 2) ?></td>
+                <td><?= $product['stock'] > 0 ? 'Available' : 'Out of Stock' ?></td>
+                <td style="text-align: center;">
                   <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
                   <input type="number" name="stock" value="<?= $product['stock'] ?>" min="0" style="width: 60px; text-align: center;">
-                  <!--<button type="submit" name="update_stock">Update</button>-->
-                </form>
-              </td>
-              <td><button type="submit" name="update_stock">Update</button></td>
-              <td><?= htmlspecialchars($product['details'] ?? '-') ?></td>
-              <td>
-                <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">
-                  <!-- Delete button -->
-                  <a href="productController.php?delete=<?= $product['product_id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
-                    <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
-                  </a>
-                </div>
-              </td>
+                </td>
+                <td>
+                  <button type="submit" name="update_stock">Update</button>
+                </td>
+                <td><?= htmlspecialchars($product['details'] ?? '-') ?></td>
+                <td>
+                  <div style="display: flex; justify-content: flex-end; align-items: center; gap: 24px">
+                    <a href="productController.php?delete=<?= $product['product_id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
+                      <span class="material-symbols-outlined" style="cursor:pointer;"> delete </span>
+                    </a>
+                  </div>
+                </td>
+              </form>
             </tr>
           <?php endforeach; ?>
         </tbody>
