@@ -194,7 +194,7 @@ if ($sortKey && isset($products[0][$sortKey])) {
 
   </div>
 
-</div>
+
 
 </body>
 </html>

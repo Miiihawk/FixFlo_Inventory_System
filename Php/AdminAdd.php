@@ -174,8 +174,6 @@ $categories = getAllCategories();
         </div>
       </div>
     </div>
-
-
   </div>
 
 </div>

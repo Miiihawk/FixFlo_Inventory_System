@@ -8,7 +8,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $product = isset($_SESSION['editProduct']) ? $_SESSION['editProduct'] : null;
 require_once 'productController.php';
-$categories = getAllCategories();
 ?>
 
 <!doctype html>
@@ -145,7 +144,7 @@ $categories = getAllCategories();
         <span class="material-symbols-outlined"> menu</span>
       </button>
 
-      <div class="profile">
+            <div class="profile">
         <div class="info">
           <p><b><?= htmlspecialchars($_SESSION['username']) ?></b></p>
           <p><?= htmlspecialchars($_SESSION['role']) ?></p>
@@ -154,31 +153,7 @@ $categories = getAllCategories();
           <img src="../img/Profile.jpg" alt="">
         </div>
       </div>
-
-            <div class="recent_updates">
-        <h2>Category</h2>
-        <div class="Logs">
-          <table>
-            <thead>
-            <tr>
-              <th>ID</th>
-              <th>Category</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($categories as $category): ?>
-              <tr>
-                <td><?= htmlspecialchars($category['category_id']) ?></td>
-                <td><?= htmlspecialchars($category['category_name']) ?></td>
-              </tr>
-            <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-
-    
 
   </div>
 </div>
